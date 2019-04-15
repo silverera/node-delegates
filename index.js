@@ -67,13 +67,13 @@ Delegator.auto = function(proto, targetProto, targetProp){
  * @api public
  */
 
-Delegator.prototype.method = function(name){
+Delegator.prototype.method = function(name, ...args){
   var proto = this.proto;
   var target = this.target;
   this.methods.push(name);
 
-  proto[name] = function(){
-    return this[target][name].apply(this[target], arguments);
+  proto[name] = function(...args1){
+    return this[target][name].apply(this[target], [...args, ...args1]);
   };
 
   return this;
